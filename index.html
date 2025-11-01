@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador Web</title>
+    <style>
+        body { font-family: sans-serif; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; background-color: #f0f0f0; }
+        #contador { font-size: 5rem; margin: 20px; }
+        button { font-size: 1.5rem; padding: 10px 20px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Contador de Clics</h1>
+    <div id="contador">0</div>
+    <button id="botonIncrementar">¡Haz clic!</button>
+
+    <script>
+        const displayContador = document.getElementById('contador');
+        const boton = document.getElementById('botonIncrementar');
+
+        // Función para obtener el contador actual al cargar la página
+        async function obtenerContadorInicial() {
+            try {
+                const response = await fetch('/count');
+                const data = await response.json();
+                displayContador.textContent = data.count;
+            } catch (error) {
+                console.error('Error al obtener el contador:', error);
+            }
+        }
+
+        // Función para incrementar el contador
+        async function incrementarContador() {
+            try {
+                const response = await fetch('/increment', {
+                    method: 'POST'
+                });
+                const data = await response.json();
+                displayContador.textContent = data.count;
+            } catch (error) {
+                console.error('Error al incrementar:', error);
+            }
+        }
+
+        // Asignar el evento al botón
+        boton.addEventListener('click', incrementarContador);
+
+        // Cargar el valor inicial cuando la página esté lista
+        document.addEventListener('DOMContentLoaded', obtenerContadorInicial);
+    </script>
+</body>
+</html>

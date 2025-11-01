@@ -1,0 +1,14 @@
+{
+    "name": "contador-web-azure",
+    "version": "1.0.0",
+    "description": "Un contador web simple para Azure App Service",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "engines": {
+      "node": "22.x"
+    }
+  }
